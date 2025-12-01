@@ -2,16 +2,19 @@ version: '3.9'
 
 services:
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: jenkins
     env_file:
       - .env
+    user: root   # garante que Jenkins tenha permissão no docker.sock
     ports:
-      - "${JENKINS_UI_PORT}:8080"     # UI do Jenkins
-      - "${JENKINS_AGENT_PORT}:50000"   # Comunicação com agentes Jenkins (opcional)
+      - "${JENKINS_UI_PORT}:8080"        # UI do Jenkins
+      - "${JENKINS_AGENT_PORT}:50000"    # Comunicação com agentes Jenkins
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock   # Permite Jenkins rodar Docker no host
+      - /var/run/docker.sock:/var/run/docker.sock  # Jenkins usa Docker do host
     restart: unless-stopped
 
 volumes:
