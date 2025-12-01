@@ -36,7 +36,7 @@ pipeline {
                     tag_version = "${env.BUILD_ID}"
                 }
 
-                withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://your-k8s-api-server']) {
+                withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://your-k8s-api-server']) { // 'kubeconfig' is the ID of the kubeconfig credentials stored in Jenkins
                     sh 'sed -i "s/{{tag}}/${tag_version}/g" ./k8s/deployment.yaml'
                     sh 'kubectl apply -f k8s/deployment.yaml'
                 }
