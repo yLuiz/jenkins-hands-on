@@ -30,13 +30,18 @@ pipeline {
             
             // Adicionando etapa de deploy no Kubernetes (necessita do plugin Kubernetes CLI)
             // Não tenho um cluster k8s para testar, então o código é apenas ilustrativo
-            /* 
-            steps {
+            /* steps {
+
+                environment {
+                    tag_version = "${env.BUILD_ID}"
+                }
+
                 withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://your-k8s-api-server']) {
+                    sh 'sed -i "s/{{tag}}/${tag_version}/g" ./k8s/deployment.yaml'
                     sh 'kubectl apply -f k8s/deployment.yaml'
                 }
-            } 
-            */
+            }  */
+           
             
         }
     }
