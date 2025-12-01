@@ -19,7 +19,7 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+        stage('Deploy no Kubernetes') {
             steps {
                 echo 'Deploying...'
             }
