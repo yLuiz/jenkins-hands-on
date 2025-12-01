@@ -2,14 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Building...'
+                script {
+                    dockerapp = docker.build("luizv/jenkins-hands-on:${env.BUILD_ID}", "-f ./src/Dockerfile ./src")
+                }
             }
         }
-        stage('Test') {
+        stage('Push Docker Image') {
             steps {
-                echo 'Testing...'
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'd1f61e5d-b078-4ee7-87c1-958787507e46') {
+                        dockerapp.push('latest')
+                        dockerapp.push("${env.BUILD_ID}")
+                    }
+                }
             }
         }
         stage('Deploy') {

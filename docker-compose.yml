@@ -7,7 +7,7 @@ services:
     env_file:
       - .env
     ports:
-      - "${JENKINS_UI_PORT}:8080"     # Acesso à UI do Jenkins
+      - "${JENKINS_UI_PORT}:8080"     # UI do Jenkins
       - "${JENKINS_AGENT_PORT}:50000"   # Comunicação com agentes Jenkins (opcional)
     volumes:
       - jenkins_home:/var/jenkins_home
