@@ -5,7 +5,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    dockerapp = docker.build("luizv/jenkins-hands-on:${env.BUILD_ID}", "-f ./src/Dockerfile ./src")
+                    dockerapp = docker.build("yluizv/jenkins-hands-on:${env.BUILD_ID}", "-f ./src/Dockerfile ./src")
                 }
             }
         }
